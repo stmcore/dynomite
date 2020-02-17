@@ -23,7 +23,8 @@ FROM ubuntu
 
 # File Author / Maintainer
 MAINTAINER Ioannis Papapanagiotou - dynomite@netflix.com
-
+ENV http_proxy ${PROXY_URL}
+ENV https_proxy ${PROXY_URL}
 # Update the repository sources list and Install package Build Essential
 RUN apt-get update && \
 	export DEBIAN_FRONTEND=noninteractive && \
@@ -55,7 +56,8 @@ RUN autoreconf -fvi \
 	&& CFLAGS="-ggdb3 -O0" ./configure --enable-debug=full \
 	&& make \
 	&& make install
-
+ENV http_proxy ""
+ENV https_proxy ""
 ##################### INSTALLATION ENDS #####################
 
 # Expose the peer port
